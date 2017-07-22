@@ -38,10 +38,10 @@ public class ExamplePlugin extends EditorPlugin {
 
     @Override
     @FromAnyThread
-    public void registerContextMenuFillers(@NotNull final AssetTreeContextMenuFillerRegistry fillerRegistry) {
-        super.registerContextMenuFillers(fillerRegistry);
+    public void register(@NotNull final AssetTreeContextMenuFillerRegistry registry) {
+        super.register(registry);
 
-        fillerRegistry.register((element, items, actionTester) -> {
+        registry.register((element, items, actionTester) -> {
 
             final MenuItem item = new MenuItem("Plugin menu item");
             item.setOnAction(event -> System.out.println("To do something"));
@@ -52,22 +52,22 @@ public class ExamplePlugin extends EditorPlugin {
 
     @Override
     @FromAnyThread
-    public void registerFileConverters(@NotNull final FileConverterRegistry converterRegistry) {
-        super.registerFileConverters(converterRegistry);
-        converterRegistry.register(ExampleFileConverter.DESCRIPTION);
+    public void register(@NotNull final FileConverterRegistry registry) {
+        super.register(registry);
+        registry.register(ExampleFileConverter.DESCRIPTION);
     }
 
     @Override
     @FromAnyThread
-    public void registerFileCreators(@NotNull final FileCreatorRegistry registry) {
-        super.registerFileCreators(registry);
+    public void register(@NotNull final FileCreatorRegistry registry) {
+        super.register(registry);
         registry.register(ExampleFileCreator.DESCRIPTION);
     }
 
     @Override
     @FromAnyThread
-    public void registerFileEditors(@NotNull final EditorRegistry registry) {
-        super.registerFileEditors(registry);
+    public void register(@NotNull final EditorRegistry registry) {
+        super.register(registry);
         registry.register(ExampleTextFileEditor.DESCRIPTION);
     }
 
