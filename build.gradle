@@ -23,7 +23,7 @@ configurations {
 }
 
 dependencies {
-    compile 'com.github.JavaSaBr:jME3-SpaceShift-Editor:0.9.11-SNAPSHOT'
+    compile 'com.github.JavaSaBr:jME3-SpaceShift-Editor:develop-SNAPSHOT'
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
