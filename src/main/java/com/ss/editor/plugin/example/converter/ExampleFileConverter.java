@@ -36,26 +36,20 @@ public class ExampleFileConverter extends AbstractFileConverter {
 
 
     @Override
-    protected void convertImpl(@NotNull final Path source, @NotNull final Path destination, final boolean overwrite) {
+    protected void convertImpl(@NotNull final Path source, @NotNull final Path destination, final boolean overwrite)
+            throws IOException {
+        super.convertImpl(source, destination, overwrite);
 
-        try (InputStream in = Files.newInputStream(source)) {
-
+        try (final InputStream in = Files.newInputStream(source)) {
             final BufferedImage bufferedImage = ImageIO.read(in);
-
-            try (OutputStream out = Files.newOutputStream(destination)) {
+            try (final OutputStream out = Files.newOutputStream(destination)) {
                 ImageIO.write(bufferedImage, "jpeg", out);
             }
-
-        } catch (final IOException e) {
-            throw new RuntimeException(e);
         }
-
-        super.convertImpl(source, destination, overwrite);
     }
 
-    @NotNull
     @Override
-    public String getTargetExtension() {
+    public @NotNull String getTargetExtension() {
         return FileExtensions.IMAGE_JPG;
     }
 }

@@ -2,16 +2,17 @@ package com.ss.editor.plugin.example.editor;
 
 import static com.ss.rlib.util.ObjectUtils.notNull;
 import com.ss.editor.FileExtensions;
+import com.ss.editor.annotation.BackgroundThread;
 import com.ss.editor.annotation.FXThread;
+import com.ss.editor.plugin.api.editor.BaseFileEditorWithoutState;
 import com.ss.editor.plugin.example.Messages;
 import com.ss.editor.ui.component.editor.EditorDescription;
-import com.ss.editor.ui.component.editor.impl.AbstractFileEditor;
 import com.ss.editor.ui.css.CSSClasses;
 import com.ss.rlib.ui.util.FXUtils;
 import com.ss.rlib.util.FileUtils;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.StackPane;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -25,7 +26,7 @@ import java.nio.file.Path;
  *
  * @author JavaSaBr
  */
-public class ExampleTextFileEditor extends AbstractFileEditor<VBox> {
+public class ExampleTextFileEditor extends BaseFileEditorWithoutState {
 
     /**
      * The constant DESCRIPTION.
@@ -52,14 +53,8 @@ public class ExampleTextFileEditor extends AbstractFileEditor<VBox> {
     @Nullable
     private TextArea textArea;
 
-    @NotNull
     @Override
-    protected VBox createRoot() {
-        return new VBox();
-    }
-
-    @Override
-    protected void createContent(@NotNull final VBox root) {
+    protected void createContent(@NotNull final StackPane root) {
 
         textArea = new TextArea();
         textArea.textProperty().addListener((observable, oldValue, newValue) -> updateDirty(newValue));
@@ -91,15 +86,14 @@ public class ExampleTextFileEditor extends AbstractFileEditor<VBox> {
     /**
      * @return the text area.
      */
-    @NotNull
-    private TextArea getTextArea() {
+    private @NotNull TextArea getTextArea() {
         return notNull(textArea);
     }
 
-    @FXThread
     @Override
-    public void openFile(@NotNull final Path file) {
-        super.openFile(file);
+    @FXThread
+    protected void doOpenFile(@NotNull final Path file) {
+        super.doOpenFile(file);
 
         setOriginalContent(FileUtils.read(file));
 
@@ -110,8 +104,7 @@ public class ExampleTextFileEditor extends AbstractFileEditor<VBox> {
     /**
      * @return the original content of the opened file.
      */
-    @NotNull
-    private String getOriginalContent() {
+    private @NotNull String getOriginalContent() {
         return notNull(originalContent);
     }
 
@@ -123,17 +116,25 @@ public class ExampleTextFileEditor extends AbstractFileEditor<VBox> {
     }
 
     @Override
-    public void doSave() {
-        super.doSave();
+    @BackgroundThread
+    protected void doSave(@NotNull final Path toStore) throws IOException {
+        super.doSave(toStore);
 
         final TextArea textArea = getTextArea();
         final String newContent = textArea.getText();
 
         try (final PrintWriter out = new PrintWriter(Files.newOutputStream(getEditFile()))) {
             out.print(newContent);
-        } catch (final IOException e) {
-            LOGGER.warning(this, e);
         }
+    }
+
+    @Override
+    @FXThread
+    protected void postSave() {
+        super.postSave();
+
+        final TextArea textArea = getTextArea();
+        final String newContent = textArea.getText();
 
         setOriginalContent(newContent);
         updateDirty(newContent);
@@ -153,9 +154,8 @@ public class ExampleTextFileEditor extends AbstractFileEditor<VBox> {
         updateDirty(newContent);
     }
 
-    @NotNull
     @Override
-    public EditorDescription getDescription() {
+    public @NotNull EditorDescription getDescription() {
         return DESCRIPTION;
     }
 }
