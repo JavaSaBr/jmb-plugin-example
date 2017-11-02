@@ -1,6 +1,6 @@
 
-It's an example for a plugin for jME SpaceShift Editor.
+It's an example for a plugin for jMonkey Builder.
 
 How it works you can look at there: 
 
-https://bitbucket.org/JavaSabr/jme3-spaceshift-editor/wiki/Plugin%20Development
+https://bitbucket.org/JavaSabr/jmonkey-builder/wiki/Plugin%20Development
