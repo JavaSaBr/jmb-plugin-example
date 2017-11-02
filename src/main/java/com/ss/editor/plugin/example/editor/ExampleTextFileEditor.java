@@ -92,7 +92,7 @@ public class ExampleTextFileEditor extends BaseFileEditorWithoutState {
 
     @Override
     @FXThread
-    protected void doOpenFile(@NotNull final Path file) {
+    protected void doOpenFile(@NotNull final Path file) throws IOException {
         super.doOpenFile(file);
 
         setOriginalContent(FileUtils.read(file));

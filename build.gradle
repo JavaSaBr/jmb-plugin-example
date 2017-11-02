@@ -7,7 +7,7 @@ apply plugin: 'maven'
 group = 'com.spaceshift'
 version = '0.1'
 
-ext.artifactId = 'ss-editor-plugin-example'
+ext.artifactId = 'jmb-plugin-example'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -23,7 +23,7 @@ configurations {
 }
 
 dependencies {
-    compile 'com.github.JavaSaBr:jME3-SpaceShift-Editor:develop-SNAPSHOT'
+    compile 'com.github.JavaSaBr:jmonkeybuilder:develop-SNAPSHOT'
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
@@ -132,7 +132,7 @@ task deployPlugin(type: Zip, dependsOn: 'preparePlugin') {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.1'
+    gradleVersion = '4.3'
 }
 
 defaultTasks 'install'

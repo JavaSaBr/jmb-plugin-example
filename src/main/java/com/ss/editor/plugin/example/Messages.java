@@ -9,18 +9,12 @@ import java.util.ResourceBundle;
  *
  * @author JavaSaBr
  */
-public class Messages {
+public interface Messages {
 
-    private static final ResourceBundle RESOURCE_BUNDLE = MessagesPluginFactory.getResourceBundle(ExamplePlugin.class,
+    ResourceBundle RESOURCE_BUNDLE = MessagesPluginFactory.getResourceBundle(ExamplePlugin.class,
             "plugin/example/messages/messages");
 
-    public static final String EXAMPLE_FILE_CONVERTER_DESCRIPTION;
-    public static final String EXAMPLE_FILE_CREATOR_TITLE;
-    public static final String EXAMPLE_TEXT_FILE_EDITOR_NAME;
-
-    static {
-        EXAMPLE_FILE_CONVERTER_DESCRIPTION = RESOURCE_BUNDLE.getString("ExampleFileConverterDescription");
-        EXAMPLE_FILE_CREATOR_TITLE = RESOURCE_BUNDLE.getString("ExampleFileCreatorTitle");
-        EXAMPLE_TEXT_FILE_EDITOR_NAME = RESOURCE_BUNDLE.getString("ExampleTextFileEditorName");
-    }
+    String EXAMPLE_FILE_CONVERTER_DESCRIPTION = RESOURCE_BUNDLE.getString("ExampleFileConverterDescription");
+    String EXAMPLE_FILE_CREATOR_TITLE = RESOURCE_BUNDLE.getString("ExampleFileCreatorTitle");
+    String EXAMPLE_TEXT_FILE_EDITOR_NAME = RESOURCE_BUNDLE.getString("ExampleTextFileEditorName");
 }

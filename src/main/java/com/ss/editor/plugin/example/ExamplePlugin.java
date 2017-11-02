@@ -26,7 +26,7 @@ import org.jetbrains.annotations.NotNull;
 @PluginDescription(
         id = "com.ss.editor.plugin.example",
         version = "0.1",
-        minAppVersion = "1.1.0",
+        minAppVersion = "1.3.0",
         name = "Example plugin",
         description = "Example plugin"
 )
