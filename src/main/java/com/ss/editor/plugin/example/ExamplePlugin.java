@@ -1,6 +1,6 @@
 package com.ss.editor.plugin.example;
 
-import com.ss.editor.annotation.FXThread;
+import com.ss.editor.annotation.FxThread;
 import com.ss.editor.annotation.FromAnyThread;
 import com.ss.editor.file.converter.FileConverterRegistry;
 import com.ss.editor.plugin.EditorPlugin;
@@ -11,7 +11,7 @@ import com.ss.editor.ui.component.asset.tree.AssetTreeContextMenuFillerRegistry;
 import com.ss.editor.ui.component.creator.FileCreatorRegistry;
 import com.ss.editor.ui.component.editor.EditorRegistry;
 import com.ss.editor.ui.control.property.builder.PropertyBuilderRegistry;
-import com.ss.editor.ui.control.tree.node.TreeNodeFactoryRegistry;
+import com.ss.editor.ui.control.tree.node.factory.TreeNodeFactoryRegistry;
 import com.ss.rlib.plugin.PluginContainer;
 import com.ss.rlib.plugin.PluginSystem;
 import com.ss.rlib.plugin.annotation.PluginDescription;
@@ -90,7 +90,7 @@ public class ExamplePlugin extends EditorPlugin {
     }
 
     @Override
-    @FXThread
+    @FxThread
     public void onFinishLoading(@NotNull final PluginSystem pluginSystem) {
         super.onFinishLoading(pluginSystem);
     }

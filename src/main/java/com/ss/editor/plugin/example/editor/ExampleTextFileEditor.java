@@ -3,11 +3,11 @@ package com.ss.editor.plugin.example.editor;
 import static com.ss.rlib.util.ObjectUtils.notNull;
 import com.ss.editor.FileExtensions;
 import com.ss.editor.annotation.BackgroundThread;
-import com.ss.editor.annotation.FXThread;
+import com.ss.editor.annotation.FxThread;
 import com.ss.editor.plugin.api.editor.BaseFileEditorWithoutState;
 import com.ss.editor.plugin.example.Messages;
 import com.ss.editor.ui.component.editor.EditorDescription;
-import com.ss.editor.ui.css.CSSClasses;
+import com.ss.editor.ui.css.CssClasses;
 import com.ss.rlib.ui.util.FXUtils;
 import com.ss.rlib.util.FileUtils;
 import javafx.scene.control.TextArea;
@@ -62,7 +62,7 @@ public class ExampleTextFileEditor extends BaseFileEditorWithoutState {
         textArea.prefWidthProperty().bind(root.widthProperty());
 
         FXUtils.addToPane(textArea, root);
-        FXUtils.addClassesTo(textArea, CSSClasses.TRANSPARENT_TEXT_AREA);
+        FXUtils.addClassesTo(textArea, CssClasses.TRANSPARENT_TEXT_AREA);
     }
 
     /**
@@ -91,7 +91,7 @@ public class ExampleTextFileEditor extends BaseFileEditorWithoutState {
     }
 
     @Override
-    @FXThread
+    @FxThread
     protected void doOpenFile(@NotNull final Path file) throws IOException {
         super.doOpenFile(file);
 
@@ -129,7 +129,7 @@ public class ExampleTextFileEditor extends BaseFileEditorWithoutState {
     }
 
     @Override
-    @FXThread
+    @FxThread
     protected void postSave() {
         super.postSave();
 
