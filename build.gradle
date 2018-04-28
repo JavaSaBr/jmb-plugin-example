@@ -8,6 +8,7 @@ apply plugin: 'application'
 group = 'com.spaceshift'
 version = '0.1'
 
+mainClassName = "com.ss.editor.DevelopPluginStarter"
 ext.artifactId = 'jmb-plugin-example'
 
 sourceCompatibility = 1.10
@@ -39,11 +40,6 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier = 'javadoc'
     from javadoc.destinationDir
-}
-
-artifacts {
-    archives sourcesJar
-    archives javadocJar
 }
 
 task cleanPluginFolders(type: Delete) {
