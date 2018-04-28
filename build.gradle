@@ -3,19 +3,24 @@ import java.nio.file.Paths
 
 apply plugin: 'java'
 apply plugin: 'maven'
+apply plugin: 'application'
 
 group = 'com.spaceshift'
 version = '0.1'
 
 ext.artifactId = 'jmb-plugin-example'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 1.10
+targetCompatibility = 1.10
+
+mainClassName = "com.ss.editor.DevelopPluginStarter"
 
 repositories {
-    mavenCentral()
     jcenter()
+    mavenCentral()
+    mavenLocal()
     maven { url 'https://jitpack.io' }
+    maven { url "https://dl.bintray.com/javasabr/maven" }
 }
 
 configurations {
@@ -23,7 +28,7 @@ configurations {
 }
 
 dependencies {
-    compile 'com.github.JavaSaBr:jmonkeybuilder:develop-SNAPSHOT'
+    compile 'com.spaceshift:jmonkeybuilder:1.8.0'
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
@@ -128,19 +133,20 @@ task deployPlugin(type: Zip, dependsOn: 'preparePlugin') {
     def deployPluginFolder = projectFolder.resolve("deploy-plugin")
 
     from pluginFolder.toString()
-    destinationDir deployPluginFolder.toFile()
+    destinationDir = deployPluginFolder.toFile()
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.3'
+    gradleVersion = '4.7'
 }
 
-defaultTasks 'install'
-
-// To specify a license in the pom:
-install {
-    repositories.mavenInstaller {
-        pom.version = version
-        pom.artifactId = artifactId
-    }
+run.dependsOn {
+    preparePlugin
 }
+
+run.jvmArgs(Arrays.asList(
+        "-Xdebug",
+        "-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005",
+        "-Duser.country=EU",
+        "-Duser.language=en"
+))

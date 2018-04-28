@@ -1,17 +1,14 @@
 package com.ss.editor.plugin.example.converter;
 
-import static com.ss.rlib.util.array.ArrayFactory.asArray;
+import static com.ss.rlib.common.util.array.ArrayFactory.asArray;
 import com.ss.editor.FileExtensions;
 import com.ss.editor.file.converter.FileConverterDescription;
 import com.ss.editor.file.converter.impl.AbstractFileConverter;
-import com.ss.editor.plugin.example.Messages;
+import com.ss.editor.plugin.example.PluginMessages;
 import org.jetbrains.annotations.NotNull;
 
 import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -22,27 +19,22 @@ import java.nio.file.Path;
  */
 public class ExampleFileConverter extends AbstractFileConverter {
 
-    /**
-     * The constant DESCRIPTION.
-     */
-    @NotNull
     public static final FileConverterDescription DESCRIPTION = new FileConverterDescription();
 
     static {
-        DESCRIPTION.setDescription(Messages.EXAMPLE_FILE_CONVERTER_DESCRIPTION);
+        DESCRIPTION.setDescription(PluginMessages.EXAMPLE_FILE_CONVERTER_DESCRIPTION);
         DESCRIPTION.setConstructor(ExampleFileConverter::new);
         DESCRIPTION.setExtensions(asArray(FileExtensions.IMAGE_PNG));
     }
 
 
     @Override
-    protected void convertImpl(@NotNull final Path source, @NotNull final Path destination, final boolean overwrite)
-            throws IOException {
+    protected void convertImpl(@NotNull Path source, @NotNull Path destination, boolean overwrite) throws IOException {
         super.convertImpl(source, destination, overwrite);
 
-        try (final InputStream in = Files.newInputStream(source)) {
-            final BufferedImage bufferedImage = ImageIO.read(in);
-            try (final OutputStream out = Files.newOutputStream(destination)) {
+        try (var in = Files.newInputStream(source)) {
+            var bufferedImage = ImageIO.read(in);
+            try (var out = Files.newOutputStream(destination)) {
                 ImageIO.write(bufferedImage, "jpeg", out);
             }
         }

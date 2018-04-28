@@ -9,7 +9,7 @@ import java.util.ResourceBundle;
  *
  * @author JavaSaBr
  */
-public interface Messages {
+public interface PluginMessages {
 
     ResourceBundle RESOURCE_BUNDLE = MessagesPluginFactory.getResourceBundle(ExamplePlugin.class,
             "plugin/example/messages/messages");
